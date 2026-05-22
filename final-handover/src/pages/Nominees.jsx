@@ -70,7 +70,7 @@ export default function Nominees() {
       {/* Header */}
       <div style={S.header}>
         <div>
-          <h1 style={S.heading}>Nominees</h1>
+          <h1 style={S.heading}>Trusted Contacts</h1>
           <p style={S.subheading}>{nominees.length} trusted {nominees.length === 1 ? "person" : "people"} registered</p>
         </div>
         <button onClick={() => setShowForm(!showForm)} style={S.btnPrimary}
@@ -83,7 +83,7 @@ export default function Nominees() {
       {/* Add form */}
       {showForm && (
         <div style={{ ...S.card, marginBottom: "16px", borderColor: "rgba(108,71,255,0.25)", animation: "slideUp 0.3s ease" }}>
-          <p style={S.cardTitle}>New Nominee</p>
+          <p style={S.cardTitle}>New </p>
 
           <p style={S.label}>Relationship</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "8px", marginBottom: "16px" }}>
@@ -123,8 +123,8 @@ export default function Nominees() {
       ) : nominees.length === 0 ? (
         <div style={{ ...S.card, padding: "48px", textAlign: "center" }}>
           <p style={{ fontSize: "36px", marginBottom: "12px" }}>👥</p>
-          <p style={{ fontSize: "15px", fontWeight: "500", color: "var(--text-primary)", marginBottom: "6px" }}>No nominees yet</p>
-          <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>Add trusted people who will receive your legacy</p>
+          <p style={{ fontSize: "15px", fontWeight: "500", color: "var(--text-primary)", marginBottom: "6px" }}>No person yet</p>
+          <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>Add trusted peoples</p>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

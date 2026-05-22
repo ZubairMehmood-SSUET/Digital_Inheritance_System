@@ -6,10 +6,10 @@ import { logOut } from "../firebase/auth";
 
 const NAV_CARDS = [
   { path: "/vault",       label: "Vault",       sub: "Encrypted assets",    emoji: "🔐", color: "#7c3aed" },
-  { path: "/nominees",    label: "Nominees",     sub: "Trusted people",      emoji: "👥", color: "#10b981" },
+  { path: "/nominees",    label: "Trusted Contacts",     sub: "Trusted people",      emoji: "👥", color: "#10b981" },
   { path: "/inheritance", label: "Inheritance",  sub: "Distribution plans",  emoji: "⚖️", color: "#f59e0b" },
   { path: "/ai-letter",   label: "AI Letter",    sub: "Farewell message",    emoji: "🤖", color: "#60a5fa" },
-  { path: "/emergency-card", label: "Emergency Card", sub: "QR medical card", emoji: "🆘", color: "#ef4444" },
+  
 ];
 
 export default function Dashboard() {
@@ -97,7 +97,7 @@ export default function Dashboard() {
         {[
           { to: "/dashboard",   emoji: "⊞",  label: "Overview",     active: true  },
           { to: "/vault",       emoji: "🔐", label: "Vault",        active: false },
-          { to: "/nominees",    emoji: "👥", label: "Nominees",     active: false },
+          { to: "/nominees",    emoji: "👥", label: "Trusted Contacts",     active: false },
           { to: "/ai-letter",   emoji: "🤖", label: "AI Letter",    active: false },
         ].map((item) => (
           <Link key={item.to} to={item.to} style={item.active ? S.navActive : S.navItem}
