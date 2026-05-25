@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #F5F7FB;
+  --bg-card:      #FFFFFF;
+  --bg-hover:     #F0F2F8;
+  --bg-active:    #EEF0FD;
+
+  --border:       #E4E7EF;
+  --border-focus: #5B67F1;
+
+  --text-1:       #1E293B;
+  --text-2:       #475569;
+  --text-3:       #94A3B8;
+
+  --brand:        #5B67F1;
+  --brand-light:  #EEF0FD;
+  --brand-hover:  #4A56E0;
+
+  --purple:       #8B5CF6;
+  --teal:         #14B8A6;
+
+  --success:      #22C55E;
+  --success-bg:   #F0FDF4;
+  --warning:      #F59E0B;
+  --warning-bg:   #FFFBEB;
+  --danger:       #EF4444;
+  --danger-bg:    #FEF2F2;
+  --info:         #3B82F6;
+  --info-bg:      #EFF6FF;
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:       0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md:    0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:    0 16px 40px rgba(0,0,0,0.12);
+
+  --radius-sm:    6px;
+  --radius:       10px;
+  --radius-lg:    14px;
+  --radius-xl:    20px;
+}
+
+html { -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+input, select, textarea, button { font-family: 'Inter', system-ui, sans-serif; }
+
+/* Animations */
+@keyframes spin       { to { transform: rotate(360deg); } }
+@keyframes fadeIn     { from { opacity:0; } to { opacity:1; } }
+@keyframes slideUp    { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideRight { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideDown  { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+@keyframes scaleIn    { from { opacity:0; transform:scale(0.97); } to { opacity:1; transform:scale(1); } }
+@keyframes pulse      { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+@keyframes shimmer    { 0% { background-position:-600px 0; } 100% { background-position:600px 0; } }
+
+.skeleton {
+  background: linear-gradient(90deg, #F0F2F8 25%, #E8EAF2 50%, #F0F2F8 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
