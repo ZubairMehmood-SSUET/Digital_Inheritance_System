@@ -17,9 +17,5 @@ export const signIn = (email, pass) =>
 
 export const signInGoogle = () =>
   signInWithPopup(auth, googleProvider);
+export const logOut = () => signOut(auth);
 
-<<<<<<< HEAD
-export const logOut = () => signOut(auth);
-=======
-export const logOut = () => signOut(auth);
->>>>>>> 8a69c21691b430a00b290d267a1313fc6b4343e2
