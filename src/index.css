@@ -9,6 +9,12 @@
   --bg-hover:     #F0F2F8;
   --bg-active:    #EEF0FD;
 
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #0f172a;
+  --secondary-text: #64748b;
+  --border-color: #e2e8f0;
+
   --border:       #E4E7EF;
   --border-focus: #5B67F1;
 
@@ -61,6 +67,12 @@
   --bg-card:      #1A1D27;
   --bg-hover:     #1E2235;
   --bg-active:    #252A3D;
+
+  --bg-color: #0b0c14;
+  --card-bg: #151722;
+  --text-color: #f1f5f9;
+  --secondary-text: #94a3b8;
+  --border-color: #2d2f3d;
 
   --border:       #2A2F45;
   --border-focus: #6B77F5;
