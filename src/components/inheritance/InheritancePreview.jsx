@@ -104,7 +104,7 @@ export default function InheritancePreview({ plan, onConfirm, onClose, saving })
 
 const styles = {
   overlay: {
-    position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)",
+    position: "fixed", inset: 0, background: "var(--overlay)", backdropFilter: "blur(4px)",
     display: "flex", alignItems: "center", justifyContent: "center",
     zIndex: 1000, padding: "1rem",
   },

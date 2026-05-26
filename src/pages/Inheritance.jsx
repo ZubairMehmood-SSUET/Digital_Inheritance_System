@@ -318,18 +318,23 @@ export default function Inheritance() {
 }
 
 const S = {
-  toast: { position: "fixed", top: "16px", right: "16px", zIndex: 9999, padding: "12px 18px", borderRadius: "12px", border: "1px solid", fontSize: "13px", fontWeight: "500" },
+  toast: { position: "fixed", top: "16px", right: "16px", zIndex: 9999, padding: "12px 18px", borderRadius: "12px", border: "1px solid var(--border)", background: "var(--bg-2)", color: "var(--text-primary)", fontSize: "13px", fontWeight: "500" },
   header: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" },
   heading: { fontSize: "22px", fontWeight: "600", color: "var(--text-primary)", margin: 0 },
-  subheading: { fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" },
+  subheading: { fontSize: "13px", color: "var(--text-secondary)", marginTop: "4px" },
   card: { background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: "14px", padding: "18px", transition: "border-color 0.2s" },
-  stepLabel: { fontSize: "10px", color: "var(--brand-light)", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "600", marginBottom: "14px" },
+  stepLabel: { fontSize: "10px", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "600", marginBottom: "14px" },
   select: { width: "100%", padding: "10px 12px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "8px", color: "var(--text-primary)", fontSize: "13px", marginBottom: "10px", boxSizing: "border-box", cursor: "pointer", outline: "none" },
-  input: { padding: "10px 14px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "10px", color: "var(--text-primary)", fontSize: "13px", outline: "none", transition: "border-color 0.2s", boxSizing: "border-box" },
-  badge: { background: "var(--bg-3)", color: "var(--text-muted)", fontSize: "10px", padding: "2px 8px", borderRadius: "20px", border: "1px solid var(--border)" },
-  btnPrimary: { padding: "10px 18px", background: "linear-gradient(135deg,#6c47ff,#4f2fe0)", color: "white", border: "none", borderRadius: "10px", fontSize: "13px", fontWeight: "500", cursor: "pointer", boxShadow: "0 4px 16px rgba(108,71,255,0.3)" },
-  btnGhost: { padding: "8px 14px", background: "transparent", border: "1px solid var(--border)", color: "var(--text-secondary)", borderRadius: "8px", cursor: "pointer", fontSize: "12px" },
-  btnOutline: { background: "transparent", border: "1px solid rgba(108,71,255,0.4)", color: "var(--brand-light)", padding: "8px 16px", borderRadius: "8px", cursor: "pointer", fontSize: "13px" },
-  emptyBox: { background: "var(--bg-3)", border: "1px dashed var(--border)", borderRadius: "8px", padding: "20px", textAlign: "center", marginBottom: "10px" },
-  spinner: { width: "32px", height: "32px", border: "2px solid rgba(108,71,255,0.2)", borderTop: "2px solid var(--brand)", borderRadius: "50%", animation: "spin 0.8s linear infinite" },
+  input: { width: "100%", padding: "10px 14px", background: "var(--bg-1)", border: "1px solid var(--border)", borderRadius: "10px", color: "var(--text-primary)", fontSize: "13px", outline: "none", transition: "border-color 0.2s", boxSizing: "border-box" },
+  badge: { background: "var(--bg-3)", color: "var(--text-secondary)", fontSize: "10px", padding: "2px 8px", borderRadius: "20px", border: "1px solid var(--border)" },
+  
+  // Buttons ko ab var() use karke update kar diya hai
+  btnPrimary: { padding: "10px 18px",zIndex: 1, background: "var(--brand-color, #4427b6)", color: "#ffffff", border: "none", borderRadius: "10px", fontSize: "13px", fontWeight: "500", cursor: "pointer" },
+  btnGhost: { padding: "8px 14px",zIndex: 1, background: "transparent", border: "1px solid var(--border)", color: "var(--text-secondary)", borderRadius: "8px", cursor: "pointer", fontSize: "12px" },
+  btnOutline: { background: "transparent",zIndex: 1, border: "1px solid var(--border)", color: "var(--text-primary)", padding: "8px 16px", borderRadius: "8px", cursor: "pointer", fontSize: "13px" },
+  
+  emptyBox: { background: "var(--bg-3)",zIndex: 1, border: "1px dashed var(--border)", borderRadius: "8px", padding: "20px", textAlign: "center", marginBottom: "10px", color: "var(--text-secondary)" },
+  spinner: { width: "32px", height: "32px", border: "2px solid var(--border)", borderTop: "2px solid var(--brand-color, #6c47ff)", borderRadius: "50%", animation: "spin 0.8s linear infinite" },
+
+  
 };

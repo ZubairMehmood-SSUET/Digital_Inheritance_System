@@ -16,15 +16,18 @@ const MODULES = [
   { path:"/documents",      label:"Documents",        sub:"Important files",         d:"M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",                                                                                         color:"#8B5CF6", light:"#F5F3FF", badge:"New" },
   { path:"/udhaar",         label:"Udhaar Manager",   sub:"Loans & debts",           d:"M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z",                                                         color:"#F59E0B", light:"#FFFBEB" },
   { path:"/subscriptions",  label:"Subscriptions",    sub:"Monthly spending",        d:"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",                                                                                                    color:"#3B82F6", light:"#EFF6FF" },
+  { path:"/bills",          label:"Utility Bills",     sub:"Your monthly bills",      d:"M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",                                                                                         color:"#8B5CF6", light:"#F5F3FF", badge:"New" },
   { path:"/time-capsule",   label:"Time Capsule",     sub:"Future messages",         d:"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",                                                                                                                                                                      color:"#EC4899", light:"#FDF2F8", badge:"New" },
   { path:"/emergency-card", label:"Emergency Card",   sub:"QR medical info",         d:"M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",                                                                                   color:"#EF4444", light:"#FEF2F2" },
   { path:"/ai-letter",      label:"AI Life Summary",  sub:"Your digital story",      d:"M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z", color:"#6366F1", light:"#EEF2FF" },
+  { path:"/legacy-trigger", label:"Legacy Trigger",   sub:"Configure legacy settings", d:"M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z",                                                                                                                                     color:"#8B5CF6", light:"#F5F3FF", badge:"New" }         
 ];
 
 const CHECKLIST = [
   { label:"Add your first vault item",      path:"/vault",         cta:"Add item",    key:"vault" },
   { label:"Add a trusted contact",          path:"/nominees",      cta:"Add contact", key:"nominees" },
   { label:"Set up Emergency Card",          path:"/emergency-card",cta:"Set up",      key:"emergency" },
+  { label:"Configure Legacy Trigger",       path:"/legacy-trigger", cta:"Configure",   key:"legacy" },
   { label:"Record an udhaar entry",         path:"/udhaar",        cta:"Add entry",   key:"udhaar" },
 ];
 

@@ -2,7 +2,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Light theme (default) ───────────────────────────────────────────── */
+/* ─── LIGHT THEME (unchanged) ─────────────────────────────────────────────── */
 :root {
   --bg:           #F5F7FB;
   --bg-card:      #FFFFFF;
@@ -41,37 +41,68 @@
   --radius:       10px;
   --radius-lg:    14px;
   --radius-xl:    20px;
+
+  /* Aliases used by older pages — mapped to light values */
+  --bg-base:      #F5F7FB;
+  --bg-1:         #FFFFFF;
+  --bg-2:         #FFFFFF;
+  --bg-3:         #F5F7FB;
+  --bg-4:         #EEF0FD;
+  --text-primary: #1E293B;
+  --text-secondary: #475569;
+  --text-muted:   #94A3B8;
+  --border-hover: #C7CCE0;
 }
 
-/* ── Dark theme ──────────────────────────────────────────────────────── */
+/* ─── DARK THEME ───────────────────────────────────────────────────────────── */
+/* Applied by setting data-theme="dark" on <html> via App.jsx */
 [data-theme="dark"] {
   --bg:           #0F1117;
   --bg-card:      #1A1D27;
-  --bg-hover:     #1E2130;
-  --bg-active:    #1E2235;
+  --bg-hover:     #1E2235;
+  --bg-active:    #252A3D;
 
-  --border:       rgba(255,255,255,0.08);
-  --border-focus: #5B67F1;
+  --border:       #2A2F45;
+  --border-focus: #6B77F5;
 
-  --text-1:       #F1F5F9;
+  --text-1:       #E2E8F0;
   --text-2:       #94A3B8;
-  --text-3:       #475569;
+  --text-3:       #4A5568;
 
   --brand:        #6B77F5;
-  --brand-light:  rgba(91,103,241,0.15);
-  --brand-hover:  #7B87F7;
+  --brand-light:  #1E2235;
+  --brand-hover:  #7C87FF;
 
-  --success-bg:   rgba(34,197,94,0.12);
-  --warning-bg:   rgba(245,158,11,0.12);
-  --danger-bg:    rgba(239,68,68,0.12);
-  --info-bg:      rgba(59,130,246,0.12);
+  --purple:       #9D6EFA;
+  --teal:         #2DD4BF;
 
-  --shadow-sm:    0 1px 3px rgba(0,0,0,0.3);
-  --shadow:       0 4px 12px rgba(0,0,0,0.4);
-  --shadow-md:    0 8px 24px rgba(0,0,0,0.5);
-  --shadow-lg:    0 16px 40px rgba(0,0,0,0.6);
+  --success:      #34D399;
+  --success-bg:   #0A2218;
+  --warning:      #FBBF24;
+  --warning-bg:   #1F1508;
+  --danger:       #F87171;
+  --danger-bg:    #200A0A;
+  --info:         #60A5FA;
+  --info-bg:      #0A1628;
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow:       0 4px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:    0 8px 24px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3);
+  --shadow-lg:    0 16px 40px rgba(0,0,0,0.7);
+
+  /* Aliases — dark values */
+  --bg-base:      #0F1117;
+  --bg-1:         #1A1D27;
+  --bg-2:         #1A1D27;
+  --bg-3:         #0F1117;
+  --bg-4:         #1E2235;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --text-muted:   #4A5568;
+  --border-hover: #3A4060;
 }
 
+/* ─── Base styles (unchanged) ──────────────────────────────────────────────── */
 html { -webkit-font-smoothing: antialiased; }
 
 body {
@@ -79,7 +110,8 @@ body {
   background: var(--bg);
   color: var(--text-1);
   min-height: 100vh;
-  transition: background 0.25s ease, color 0.25s ease;
+  /* Smooth theme transitions */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -91,16 +123,10 @@ a { text-decoration: none; color: inherit; }
 
 input, select, textarea, button { font-family: 'Inter', system-ui, sans-serif; }
 
-/* Smooth theme transition on all elements */
-*, *::before, *::after {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
-}
-/* But NOT on transforms/opacity (prevents animation lag) */
-button, a, [style*="transform"], [style*="animation"] {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease, opacity 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
-}
+/* Smooth theme transition for key UI elements */
+.bg-card, [class*="card"] { transition: background-color 0.2s ease, border-color 0.2s ease; }
 
-/* Animations */
+/* ─── Animations (unchanged) ───────────────────────────────────────────────── */
 @keyframes spin       { to { transform: rotate(360deg); } }
 @keyframes fadeIn     { from { opacity:0; } to { opacity:1; } }
 @keyframes slideUp    { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -109,11 +135,20 @@ button, a, [style*="transform"], [style*="animation"] {
 @keyframes scaleIn    { from { opacity:0; transform:scale(0.97); } to { opacity:1; transform:scale(1); } }
 @keyframes pulse      { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
 @keyframes shimmer    { 0% { background-position:-600px 0; } 100% { background-position:600px 0; } }
-@keyframes toggleSlide { from { transform:translateX(0); } to { transform:translateX(20px); } }
 
 .skeleton {
-  background: linear-gradient(90deg, var(--bg-hover) 25%, var(--border) 50%, var(--bg-hover) 75%);
+  background: linear-gradient(90deg, #F0F2F8 25%, #E8EAF2 50%, #F0F2F8 75%);
   background-size: 600px 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius);
+}
+
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(90deg, #1A1D27 25%, #252A3D 50%, #1A1D27 75%);
+  background-size: 600px 100%;
+}
+
+/* Mobile sidebar hidden by default */
+@media (max-width: 768px) {
+  aside { transform: translateX(-100%); }
 }

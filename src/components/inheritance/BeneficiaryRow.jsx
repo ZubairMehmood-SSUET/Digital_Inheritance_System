@@ -1,6 +1,6 @@
 // BeneficiaryRow — single beneficiary entry with percentage slider + remove
 
-const COLORS = ["#6c47ff", "#00cc88", "#ff6b6b", "#ffaa00", "#00aaff", "#ff44aa"];
+const COLORS = ["var(--card-bg)", "var(--primary)", "var(--secondary)", "var(--accent)", "var(--warning)", "var(--info)"];
 
 const RELATION_EMOJI = {
   spouse: "💑", child: "👶", parent: "👨‍👩‍👧", sibling: "👫", friend: "🤝", other: "👤",
@@ -71,23 +71,23 @@ const styles = {
   avatar: {
     width: "38px", height: "38px", borderRadius: "50%",
     display: "flex", alignItems: "center", justifyContent: "center",
-    color: "#fff", fontSize: "16px", fontWeight: "600", flexShrink: 0,
+    color: "var(--text-1)", fontSize: "16px", fontWeight: "600", flexShrink: 0,
   },
   info: { flex: 1, minWidth: 0 },
   nameRow: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px", flexWrap: "wrap" },
-  name: { color: "#fff", fontSize: "14px", fontWeight: "500" },
-  relation: { color: "#666", fontSize: "11px", background: "#1e1e1e", padding: "2px 8px", borderRadius: "20px" },
+  name: { color: "var(--text-1)", fontSize: "14px", fontWeight: "500" },
+  relation: { color: "var(--text-2)", fontSize: "11px", background: "var(--card-bg)", padding: "2px 8px", borderRadius: "20px" },
   sliderRow: { display: "flex", alignItems: "center", gap: "10px" },
   slider: { flex: 1, height: "4px", cursor: "pointer" },
   pctBox: { display: "flex", alignItems: "center", gap: "2px", flexShrink: 0 },
   pctInput: {
-    width: "52px", padding: "4px 6px", background: "#1a1a1a",
-    border: "1px solid #444", borderRadius: "6px",
-    color: "#fff", fontSize: "13px", textAlign: "center",
+    width: "52px", padding: "4px 6px", background: "var(--card-bg)",
+    border: "1px solid var(--border)", borderRadius: "6px",
+    color: "var(--text-1)", fontSize: "13px", textAlign: "center",
   },
-  pctSymbol: { color: "#888", fontSize: "13px" },
+  pctSymbol: { color: "var(--text-2)", fontSize: "13px" },
   removeBtn: {
-    background: "transparent", border: "none", color: "#555",
+    background: "transparent", border: "none", color: "var(--text-2)",
     cursor: "pointer", fontSize: "14px", padding: "4px",
     flexShrink: 0, transition: "color 0.2s",
   },

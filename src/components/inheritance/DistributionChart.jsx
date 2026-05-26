@@ -1,16 +1,16 @@
 // DistributionChart — SVG donut chart showing beneficiary percentages
 // No external chart library needed — pure SVG
 
-const COLORS = ["#6c47ff", "#00cc88", "#ff6b6b", "#ffaa00", "#00aaff", "#ff44aa"];
+const COLORS = ["var(--primary)", "var(--secondary)", "var(--accent)", "var(--warning)", "var(--info)", "var(--danger)"];
 
 export default function DistributionChart({ beneficiaries }) {
   if (!beneficiaries || beneficiaries.length === 0) {
     return (
       <div style={styles.empty}>
         <svg width="120" height="120" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="48" fill="none" stroke="#2a2a2a" strokeWidth="16" />
+          <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" strokeWidth="16" />
         </svg>
-        <p style={styles.emptyText}>Koi beneficiary nahi</p>
+        <p style={styles.emptyText}>No beneficiaries to display</p>
       </div>
     );
   }
@@ -33,7 +33,7 @@ export default function DistributionChart({ beneficiaries }) {
     <div style={styles.wrapper}>
       <div style={styles.chartWrap}>
         <svg width="140" height="140" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r={radius} fill="none" stroke="#1e1e1e" strokeWidth="16" />
+          <circle cx="60" cy="60" r={radius} fill="none" stroke="var(--card-bg)" strokeWidth="16" />
           {segments.map((seg, i) => (
             <circle
               key={i}
@@ -47,10 +47,10 @@ export default function DistributionChart({ beneficiaries }) {
               style={{ transition: "stroke-dasharray 0.6s ease" }}
             />
           ))}
-          <text x="60" y="56" textAnchor="middle" fill="#fff" fontSize="18" fontWeight="600">
+          <text x="60" y="56" textAnchor="middle" fill="var(--text-1)" fontSize="18" fontWeight="600">
             {Math.round(total)}%
           </text>
-          <text x="60" y="70" textAnchor="middle" fill="#666" fontSize="9">
+          <text x="60" y="70" textAnchor="middle" fill="var(--text-2)" fontSize="9">
             allocated
           </text>
         </svg>
@@ -67,9 +67,9 @@ export default function DistributionChart({ beneficiaries }) {
         ))}
         {total < 100 && (
           <div style={styles.legendRow}>
-            <span style={{ ...styles.dot, background: "#2a2a2a" }} />
+            <span style={{ ...styles.dot, background: "var(--border)" }} />
             <span style={styles.legendName}>Unallocated</span>
-            <span style={{ ...styles.legendPct, color: "#ff6b6b" }}>{100 - total}%</span>
+            <span style={{ ...styles.legendPct, color: "var(--danger)" }}>{100 - total}%</span>
           </div>
         )}
       </div>
@@ -83,8 +83,8 @@ const styles = {
   legend: { flex: 1, minWidth: "140px" },
   legendRow: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" },
   dot: { width: "10px", height: "10px", borderRadius: "50%", flexShrink: 0 },
-  legendName: { color: "#ccc", fontSize: "13px", flex: 1 },
-  legendPct: { color: "#fff", fontSize: "13px", fontWeight: "600" },
+  legendName: { color: "var(--text-2)", fontSize: "13px", flex: 1 },
+  legendPct: { color: "var(--text-1)", fontSize: "13px", fontWeight: "600" },
   empty: { display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" },
-  emptyText: { color: "#555", fontSize: "12px", margin: 0 },
+  emptyText: { color: "var(--text-2)", fontSize: "12px", margin: 0 },
 };

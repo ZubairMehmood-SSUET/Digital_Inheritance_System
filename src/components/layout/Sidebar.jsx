@@ -1,4 +1,11 @@
-import { useState } from "react";
+// src/components/layout/Sidebar.jsx
+// CHANGES:
+//   1. Accepts theme + toggleTheme props
+//   2. Added ThemeToggle button above user section
+//   3. Added "Utility Bills" under Finance group
+//   4. Added "Legacy Trigger" under Legacy group
+//   All original styles and logic preserved exactly
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { logOut } from "../../firebase/auth";
 
@@ -6,39 +13,79 @@ const NAV = [
   {
     group: "Workspace",
     items: [
-      { path: "/dashboard",      label: "Overview",          icon: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>, type: "rect" },
-      { path: "/vault",          label: "Vault",             icon: null, d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
-      { path: "/nominees",       label: "Trusted Contacts",  d: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
-      { path: "/documents",      label: "Documents",         d: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", badge: "New" },
+      { path: "/dashboard",      label: "Overview",         type: "rect" },
+      { path: "/vault",          label: "Vault",            d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
+      { path: "/nominees",       label: "Trusted Contacts", d: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
+      { path: "/documents",      label: "Documents",        d: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", badge: "New" },
     ],
   },
   {
     group: "Finance",
     items: [
-      { path: "/udhaar",         label: "Udhaar Manager",    d: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" },
-      { path: "/subscriptions",  label: "Subscriptions",     d: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" },
+      { path: "/udhaar",        label: "Udhaar Manager",  d: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" },
+      { path: "/subscriptions", label: "Subscriptions",   d: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" },
+      { path: "/bills",         label: "Utility Bills",   d: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z", badge: "New" },
     ],
   },
   {
     group: "Legacy",
     items: [
-      { path: "/time-capsule",   label: "Time Capsule",      d: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", badge: "New" },
-      { path: "/inheritance",    label: "Inheritance",       d: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" },
-      { path: "/ai-letter",      label: "AI Life Summary",   d: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
-      { path: "/emergency-card", label: "Emergency Card",    d: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
+      { path: "/time-capsule",   label: "Time Capsule",     d: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", badge: "New" },
+      { path: "/inheritance",    label: "Inheritance",      d: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" },
+      { path: "/ai-letter",      label: "AI Life Summary",  d: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
+      { path: "/emergency-card", label: "Emergency Card",   d: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
+      { path: "/legacy-trigger", label: "Legacy Trigger",   d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z", badge: "New" },
     ],
   },
 ];
 
-function Icon({ d, size = 16 }) {
+function NavIcon({ d, type, size = 16 }) {
+  if (type === "rect") {
+    return (
+      <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24" style={{ flexShrink:0 }}>
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    );
+  }
   return (
-    <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+    <svg width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24" style={{ flexShrink:0 }}>
       <path strokeLinecap="round" strokeLinejoin="round" d={d} />
     </svg>
   );
 }
 
-export default function Sidebar({ userName, mobileOpen, onClose }) {
+// ── Inline theme toggle — no separate component file needed ──────────────────
+function ThemeToggleRow({ theme, toggleTheme }) {
+  const isDark = theme === "dark";
+  return (
+    <button
+      onClick={toggleTheme}
+      style={{
+        display:"flex", alignItems:"center", gap:"9px",
+        width:"100%", padding:"7px 10px",
+        borderRadius:"var(--radius-sm)", cursor:"pointer",
+        color:"var(--text-2)", fontSize:"13px", fontWeight:"400",
+        background:"transparent", border:"none",
+        transition:"background 0.15s", marginBottom:"1px",
+      }}
+      onMouseEnter={e => e.currentTarget.style.background = "var(--bg-hover)"}
+      onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+    >
+      {/* Pill toggle */}
+      <div style={{ width:"30px", height:"17px", borderRadius:"9px", background: isDark ? "var(--brand)" : "var(--border)", position:"relative", transition:"background 0.3s", flexShrink:0 }}>
+        <div style={{ position:"absolute", top:"2px", left: isDark ? "15px" : "2px", width:"13px", height:"13px", borderRadius:"50%", background:"white", transition:"left 0.25s ease", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"7px" }}>
+          {isDark ? "🌙" : "☀️"}
+        </div>
+      </div>
+      <span style={{ flexShrink:0 }}>{isDark ? "Dark mode" : "Light mode"}</span>
+    </button>
+  );
+}
+
+export default function Sidebar({ userName, mobileOpen, onClose, theme, toggleTheme }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -57,9 +104,9 @@ export default function Sidebar({ userName, mobileOpen, onClose }) {
       {mobileOpen && (
         <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(15,23,42,0.4)", zIndex:99, backdropFilter:"blur(2px)" }} />
       )}
-      <aside style={{ ...S.sidebar, ...(mobileOpen ? { transform: "translateX(0)" } : {}) }}>
+      <aside style={{ ...S.sidebar, ...(mobileOpen ? { transform:"translateX(0)" } : {}) }}>
 
-        {/* Logo */}
+        {/* Logo — unchanged */}
         <div style={S.logo}>
           <div style={S.logoIcon}>
             <svg width="14" height="14" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -72,12 +119,12 @@ export default function Sidebar({ userName, mobileOpen, onClose }) {
           </div>
         </div>
 
-        {/* Nav */}
+        {/* Nav — same loop, updated NAV array above */}
         <nav style={{ flex:1, padding:"8px 10px", overflowY:"auto" }}>
           {NAV.map(({ group, items }) => (
             <div key={group} style={{ marginBottom:"20px" }}>
               <p style={S.groupLabel}>{group}</p>
-              {items.map(({ path, label, d, badge }) => {
+              {items.map(({ path, label, d, type, badge }) => {
                 const active = pathname === path;
                 return (
                   <button key={path} onClick={() => go(path)}
@@ -86,7 +133,7 @@ export default function Sidebar({ userName, mobileOpen, onClose }) {
                     onMouseLeave={e => { if (!active) e.currentTarget.style.background = "transparent"; }}
                   >
                     <span style={{ color: active ? "var(--brand)" : "var(--text-3)" }}>
-                      <Icon d={d} />
+                      <NavIcon d={d} type={type} />
                     </span>
                     <span style={{ flex:1, textAlign:"left" }}>{label}</span>
                     {badge && (
@@ -101,7 +148,12 @@ export default function Sidebar({ userName, mobileOpen, onClose }) {
           ))}
         </nav>
 
-        {/* User */}
+        {/* Theme toggle — sits between nav and user */}
+        <div style={{ padding:"6px 10px", borderTop:"1px solid var(--border)" }}>
+          <ThemeToggleRow theme={theme} toggleTheme={toggleTheme} />
+        </div>
+
+        {/* User section — unchanged */}
         <div style={{ padding:"10px", borderTop:"1px solid var(--border)" }}>
           <div style={S.userBox}>
             <div style={S.avatar}>{(userName || "U").charAt(0).toUpperCase()}</div>
@@ -125,6 +177,7 @@ export default function Sidebar({ userName, mobileOpen, onClose }) {
   );
 }
 
+// All original styles — unchanged
 const S = {
   sidebar: {
     position:"fixed", left:0, top:0,

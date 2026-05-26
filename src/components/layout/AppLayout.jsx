@@ -1,14 +1,24 @@
+// src/components/layout/AppLayout.jsx
+// CHANGE: Accepts theme + toggleTheme props, passes them to Sidebar
+// Everything else is exactly the same as original
+
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 
-export default function AppLayout({ children, userName }) {
+export default function AppLayout({ children, userName, theme, toggleTheme }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <div style={{ display:"flex", minHeight:"100vh", background:"var(--bg)" }}>
-      <Sidebar userName={userName} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <Sidebar
+        userName={userName}
+        mobileOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
 
-      {/* Mobile topbar */}
+      {/* Mobile topbar — unchanged */}
       <div style={S.mobileBar}>
         <button onClick={() => setMobileOpen(true)} style={S.hamburger}>
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
