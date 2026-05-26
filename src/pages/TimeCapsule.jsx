@@ -104,7 +104,7 @@ export default function TimeCapsule() {
 
       {/* Banner */}
       {!showForm && capsules.length === 0 && !loading && (
-        <div style={{ ...S.card, padding:"40px", textAlign:"center", marginBottom:"20px", borderColor:"rgba(139,92,246,0.3)", background:"linear-gradient(135deg,#F5F3FF,#EEF0FD)" }}>
+        <div style={{ ...S.card, padding:"40px", textAlign:"center", marginBottom:"20px", borderColor:"rgba(139,92,246,0.3)", background:"var(--card-bg)" }}>
           <div style={{ fontSize:"40px", marginBottom:"12px" }}>⏳</div>
           <h2 style={{ fontSize:"17px", fontWeight:"700", color:"var(--text-1)", marginBottom:"6px" }}>Create Your First Time Capsule</h2>
           <p style={{ fontSize:"13px", color:"var(--text-2)", marginBottom:"20px", maxWidth:"340px", margin:"0 auto 20px" }}>
@@ -132,7 +132,8 @@ export default function TimeCapsule() {
               <input style={S.input} type="date" min={minDate}
                 value={unlockDate} onChange={e => setUnlockDate(e.target.value)}
                 onFocus={e => e.target.style.borderColor = "#8B5CF6"}
-                onBlur={e => e.target.style.borderColor = "var(--border)"} />
+                onBlur={e => e.target.style.borderColor = "var(--border)"}
+                placeholder="Select a date" />
             </div>
           </div>
 
@@ -154,7 +155,7 @@ export default function TimeCapsule() {
           </div>
 
           {unlockDate && (
-            <div style={{ padding:"10px 14px", borderRadius:"var(--radius)", background:"#F5F3FF", border:"1px solid rgba(139,92,246,0.2)", marginBottom:"14px" }}>
+            <div style={{ padding:"10px 14px", borderRadius:"var(--radius)", background:"var(--card-bg)", border:"1px solid rgba(139,92,246,0.2)", marginBottom:"14px" }}>
               <p style={{ fontSize:"12px", color:"#8B5CF6", fontWeight:"500" }}>
                 ⏳This Message <strong>{new Date(unlockDate).toLocaleDateString("en-PK",{day:"numeric",month:"long",year:"numeric"})}</strong> will unlock on the specified date.
                 {countdown(unlockDate) ? ` — ${countdown(unlockDate)} remaining` : ""}
