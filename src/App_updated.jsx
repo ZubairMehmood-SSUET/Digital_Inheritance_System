@@ -1,5 +1,11 @@
-// src/App.jsx — add /documents and /time-capsule routes
-// Keep all existing routes, just add new ones
+// src/App.jsx
+// CHANGES FROM ORIGINAL:
+//   1. Theme state (light/dark) added here — no separate hook, no new folder
+//   2. Theme applied to <html data-theme> and saved in localStorage
+//   3. theme + toggleTheme passed to AppLayout → Sidebar
+//   4. /legacy-trigger route added
+//   5. /bills route added
+//   All existing routes and logic unchanged
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -16,28 +22,57 @@ import AILetter from "./pages/AILetter";
 import Inheritance from "./pages/Inheritance";
 import EmergencyCard from "./pages/EmergencyCard";
 import EmergencyPublic from "./pages/EmergencyPublic";
-import DocumentVault from "./pages/DocumentVault";   // NEW
-import UdhaarManager from "./pages/UdhaarManager";   // NEW
-import SubscriptionTracker from "./pages/SubscriptionTracker"; // NEW
-import TimeCapsule from "./pages/TimeCapsule";       // NEW
+import DocumentVault from "./pages/DocumentVault";
+import UdhaarManager from "./pages/UdhaarManager";
+import SubscriptionTracker from "./pages/SubscriptionTracker";
+import TimeCapsule from "./pages/TimeCapsule";
+import BillManager from "./pages/BillManager";
+import LegacyTrigger from "./pages/LegacyTrigger"; // New page for legacy trigger settings
 
-function ProtectedRoute({ user, userName, children }) {
-  if (user === null) return <Navigate to="/login" />;
-  if (user === undefined) return (
+// ── Loading screen (unchanged) ───────────────────────────────────────────────
+function LoadingScreen() {
+  return (
     <div style={{ minHeight:"100vh", background:"var(--bg)", display:"flex", alignItems:"center", justifyContent:"center" }}>
       <div style={{ textAlign:"center" }}>
-        <div style={{ width:"32px", height:"32px", border:"2.5px solid #EEF0FD", borderTop:"2.5px solid var(--brand)", borderRadius:"50%", animation:"spin 0.9s linear infinite", margin:"0 auto 12px" }} />
+        <div style={{ width:"32px", height:"32px", border:"2.5px solid var(--brand-light)", borderTop:"2.5px solid var(--brand)", borderRadius:"50%", animation:"spin 0.9s linear infinite", margin:"0 auto 12px" }} />
         <p style={{ color:"var(--text-3)", fontSize:"13px" }}>Loading...</p>
       </div>
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
     </div>
   );
-  return <AppLayout userName={userName}>{children}</AppLayout>;
+}
+
+// ── Protected route — now forwards theme props to AppLayout ──────────────────
+function ProtectedRoute({ user, userName, theme, toggleTheme, children }) {
+  if (user === null) return <Navigate to="/login" />;
+  if (user === undefined) return <LoadingScreen />;
+  return (
+    <AppLayout userName={userName} theme={theme} toggleTheme={toggleTheme}>
+      {children}
+    </AppLayout>
+  );
 }
 
 export default function App() {
   const [user,     setUser]     = useState(undefined);
   const [userName, setUserName] = useState("");
+
+  // ── Theme state — stored directly in App, no hooks folder needed ──────────
+  const [theme, setTheme] = useState(() => {
+    // Read from localStorage on first render
+    return localStorage.getItem("fh_theme") || "light";
+  });
+
+  // Apply theme to <html> element whenever it changes
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("fh_theme", theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme(t => t === "light" ? "dark" : "light");
+  }
+  // ──────────────────────────────────────────────────────────────────────────
 
   useEffect(() => {
     return onAuthStateChanged(auth, async (u) => {
@@ -49,7 +84,12 @@ export default function App() {
     });
   }, []);
 
-  const wrap = (el) => <ProtectedRoute user={user} userName={userName}>{el}</ProtectedRoute>;
+  // Wrap helper — passes theme + toggleTheme through to AppLayout
+  const wrap = (el) => (
+    <ProtectedRoute user={user} userName={userName} theme={theme} toggleTheme={toggleTheme}>
+      {el}
+    </ProtectedRoute>
+  );
 
   return (
     <BrowserRouter>
@@ -66,7 +106,14 @@ export default function App() {
         <Route path="/udhaar"         element={wrap(<UdhaarManager />)} />
         <Route path="/subscriptions"  element={wrap(<SubscriptionTracker />)} />
         <Route path="/time-capsule"   element={wrap(<TimeCapsule />)} />
-        <Route path="/emergency-card" element={<ProtectedRoute user={user}><EmergencyCard /></ProtectedRoute>} />
+        <Route path="/bills"          element={wrap(<BillManager />)} />
+        <Route path="/legacy-trigger" element={wrap(<LegacyTrigger />)} />
+        {/* EmergencyCard uses its own dark standalone layout — no AppLayout */}
+        <Route path="/emergency-card" element={
+          <ProtectedRoute user={user} userName={userName} theme={theme} toggleTheme={toggleTheme}>
+            <EmergencyCard />
+          </ProtectedRoute>
+        } />
         <Route path="/emergency/:uid" element={<EmergencyPublic />} />
       </Routes>
     </BrowserRouter>
